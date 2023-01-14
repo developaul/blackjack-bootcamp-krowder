@@ -22,13 +22,26 @@ const tipos = ["C", "D", "H", "S"],
 /** Inicializa la app */
 const init = (cantidadJugadores = 2) => {
   baraja = crearBaraja();
+  jugadoresPuntos = [];
 
   for (let i = 0; i < cantidadJugadores; i++) jugadoresPuntos.push(0);
 
-  // for (let jugadorPuntos in jugadoresPuntos) {
-  //   puntosHTML[jugadorPuntos].textContent = 0;
-  //   jugadoresCartas[jugadorPuntos].textContent = "";
-  // }
+  for (let jugadorPuntos in jugadoresPuntos) {
+    puntosHTML[jugadorPuntos].textContent = 0;
+    jugadoresCartas[jugadorPuntos].textContent = "";
+  }
+
+  habilitarBotones();
+};
+
+const habilitarBotones = () => {
+  btnPedirCarta.disabled = false;
+  btnDetener.disabled = false;
+};
+
+const deshabilitarBotones = () => {
+  btnPedirCarta.disabled = true;
+  btnDetener.disabled = true;
 };
 
 /** Se encarga de crear la baraja */
@@ -95,8 +108,30 @@ const turnoComputadora = (puntosMinimos) => {
   determinarGanador(jugadoresPuntos);
 };
 
-const determinarGanador = () => {
-  console.log("Determinar puntos");
+const determinarGanador = ([jugadorPuntos, computadoraPuntos]) => {
+  setTimeout(() => {
+    if (jugadorPuntos > 21) {
+      alert("Computadora gana!");
+      return;
+    }
+
+    if (computadoraPuntos > 21) {
+      alert("Jugador Gana!");
+      return;
+    }
+
+    if (jugadorPuntos === computadoraPuntos) {
+      alert("Nadie gana :(");
+      return;
+    }
+
+    if (jugadorPuntos > computadoraPuntos) {
+      alert("Jugador gana!");
+      return;
+    }
+
+    alert("Computadora gana!");
+  }, 400);
 };
 
 // Eventos;
@@ -108,8 +143,14 @@ btnPedirCarta.addEventListener("click", () => {
   const carta = obtenerCarta();
   const jugadorPuntos = acumularPuntos({ carta, turno: 0 });
   crearCarta({ carta, turno: 0 });
+
+  if (jugadorPuntos < 21) return;
+
+  deshabilitarBotones();
+  turnoComputadora(jugadorPuntos);
 });
 
 btnDetener.addEventListener("click", () => {
+  deshabilitarBotones();
   turnoComputadora(jugadoresPuntos[0]);
 });
