@@ -45,11 +45,39 @@ const crearBaraja = () => {
   return _.shuffle(baraja);
 };
 
+/** Se encarga de obtener una carta */
+const obtenerCarta = () => {
+  if (baraja.length <= 0) throw "No hay cartas en la baraja";
+
+  return baraja.pop();
+};
+
+/**
+ * - Obtener valor de la carta
+ * - Acumular puntos
+ *
+ *
+ */
+
+const acumularPuntos = ({ carta, turno }) => {
+  const valorDeCarta = obtenerValorDeCarta(carta);
+  console.log("🚀 ~ acumularPuntos ~ carta", carta);
+  console.log("🚀 ~ acumularPuntos ~ valorDeCarta", valorDeCarta);
+};
+
+const obtenerValorDeCarta = (carta) => {
+  const valor = carta.substring(0, carta.length - 1);
+
+  return !isNaN(valor) ? valor * 1 : valor === "A" ? 11 : 10;
+};
+
 // Eventos;
 btnNuevoJuego.addEventListener("click", () => {
   init();
 });
 
 btnPedirCarta.addEventListener("click", () => {
-  console.log("Desde pedir carta!!!");
+  const carta = obtenerCarta();
+
+  const jugadorPuntos = acumularPuntos({ carta, turno: 0 });
 });
