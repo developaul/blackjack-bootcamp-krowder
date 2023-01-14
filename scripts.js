@@ -1,6 +1,7 @@
 // Referencias del DOM
 const btnNuevoJuego = document.querySelector("#btnNuevoJuego"),
   btnPedirCarta = document.querySelector("#btnPedirCarta"),
+  btnDetener = document.querySelector("#btnDeneter"),
   puntosHTML = document.querySelectorAll("small"),
   jugadoresCartas = document.querySelectorAll(".cards");
 
@@ -79,6 +80,25 @@ const crearCarta = ({ carta, turno }) => {
   jugadoresCartas[turno].append(imagen);
 };
 
+const turnoComputadora = (puntosMinimos) => {
+  let computadoraPuntos = 0;
+
+  do {
+    const carta = obtenerCarta();
+    computadoraPuntos = acumularPuntos({
+      carta,
+      turno: jugadoresPuntos.length - 1,
+    });
+    crearCarta({ carta, turno: jugadoresPuntos.length - 1 });
+  } while (computadoraPuntos < puntosMinimos && puntosMinimos <= 21);
+
+  determinarGanador(jugadoresPuntos);
+};
+
+const determinarGanador = () => {
+  console.log("Determinar puntos");
+};
+
 // Eventos;
 btnNuevoJuego.addEventListener("click", () => {
   init();
@@ -88,4 +108,8 @@ btnPedirCarta.addEventListener("click", () => {
   const carta = obtenerCarta();
   const jugadorPuntos = acumularPuntos({ carta, turno: 0 });
   crearCarta({ carta, turno: 0 });
+});
+
+btnDetener.addEventListener("click", () => {
+  turnoComputadora(jugadoresPuntos[0]);
 });
