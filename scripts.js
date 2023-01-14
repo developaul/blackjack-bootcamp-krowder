@@ -1,8 +1,12 @@
 // Referencias del DOM
-const btnNuevoJuego = document.querySelector("#btnNuevoJuego");
+const btnNuevoJuego = document.querySelector("#btnNuevoJuego"),
+  btnPedirCarta = document.querySelector("#btnPedirCarta"),
+  puntosHTML = document.querySelectorAll("small"),
+  jugadoresCartas = document.querySelectorAll(".cards");
 
 // Variables
-let baraja = [];
+let baraja = [],
+  jugadoresPuntos = [];
 
 /**
  * C = Treboles
@@ -15,14 +19,15 @@ const tipos = ["C", "D", "H", "S"],
   especiales = ["A", "J", "Q", "K"];
 
 /** Inicializa la app */
-const init = () => {
+const init = (cantidadJugadores = 2) => {
   baraja = crearBaraja();
 
-  console.log("🚀 ~ init ~ baraja", baraja);
+  for (let i = 0; i < cantidadJugadores; i++) jugadoresPuntos.push(0);
 
-  // TODO: Crear baraja
-
-  // TODO: inicializar puntos de jugadores
+  // for (let jugadorPuntos in jugadoresPuntos) {
+  //   puntosHTML[jugadorPuntos].textContent = 0;
+  //   jugadoresCartas[jugadorPuntos].textContent = "";
+  // }
 };
 
 /** Se encarga de crear la baraja */
@@ -43,4 +48,8 @@ const crearBaraja = () => {
 // Eventos;
 btnNuevoJuego.addEventListener("click", () => {
   init();
+});
+
+btnPedirCarta.addEventListener("click", () => {
+  console.log("Desde pedir carta!!!");
 });

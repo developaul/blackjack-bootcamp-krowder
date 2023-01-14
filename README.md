@@ -4,8 +4,11 @@
 2. Lograr darle styles con css. -> READY
 3. Lograr que funcione con js.
 
-- Boton Nuevo Juego:
+- Boton Nuevo Juego: - TERMINADO
+
   1. Crear baraja de cartas.
   2. Inicializar puntos de jugadores
+
+-
 
 4. Desplegarlo en github pages.
