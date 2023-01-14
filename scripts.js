@@ -60,15 +60,23 @@ const obtenerCarta = () => {
  */
 
 const acumularPuntos = ({ carta, turno }) => {
-  const valorDeCarta = obtenerValorDeCarta(carta);
-  console.log("🚀 ~ acumularPuntos ~ carta", carta);
-  console.log("🚀 ~ acumularPuntos ~ valorDeCarta", valorDeCarta);
+  jugadoresPuntos[turno] += obtenerValorDeCarta(carta);
+  puntosHTML[turno].textContent = jugadoresPuntos[turno];
+
+  return jugadoresPuntos[turno];
 };
 
 const obtenerValorDeCarta = (carta) => {
   const valor = carta.substring(0, carta.length - 1);
 
   return !isNaN(valor) ? valor * 1 : valor === "A" ? 11 : 10;
+};
+
+const crearCarta = ({ carta, turno }) => {
+  const imagen = document.createElement("img");
+  imagen.src = `assets/${carta}.png`;
+  imagen.classList.add("carta");
+  jugadoresCartas[turno].append(imagen);
 };
 
 // Eventos;
@@ -78,6 +86,6 @@ btnNuevoJuego.addEventListener("click", () => {
 
 btnPedirCarta.addEventListener("click", () => {
   const carta = obtenerCarta();
-
   const jugadorPuntos = acumularPuntos({ carta, turno: 0 });
+  crearCarta({ carta, turno: 0 });
 });
