@@ -18,6 +18,8 @@ const tipos = ["C", "D", "H", "S"],
 const init = () => {
   baraja = crearBaraja();
 
+  console.log("🚀 ~ init ~ baraja", baraja);
+
   // TODO: Crear baraja
 
   // TODO: inicializar puntos de jugadores
@@ -31,12 +33,14 @@ const crearBaraja = () => {
     for (let i = 2; i <= 10; i++) {
       baraja.push(i + tipo);
     }
+
+    for (let especial of especiales) baraja.push(especial + tipo);
   }
 
-  console.log("🚀 ~ crearBaraja ~ baraja", baraja);
+  return _.shuffle(baraja);
 };
 
-// Eventos
+// Eventos;
 btnNuevoJuego.addEventListener("click", () => {
   init();
 });
